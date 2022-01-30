@@ -3,33 +3,36 @@ package main
 import (
 	"fmt"
 	"os"
-	"strconv"
+)
+
+const (
+	usage    = "Usage: [username] [password]"
+	errUser  = "Access denied for %q.\n"
+	errPwd   = "Invalid password for %q.\n"
+	accessOK = "Access granted for %q.\n"
+	user     = "kutman"
+	pass     = "1999"
 )
 
 func main() {
+
 	var (
 		args = os.Args
-		l    = len(args) - 1
+		l    = len(args)
 	)
 
-	const (
-		username = "kutman"
-		password = 1999
-	)
-
-	if l == 1 || l == 0 {
-		fmt.Println("Usage: [username] [password]")
+	if l != 3 {
+		fmt.Println(usage)
 		return
 	}
 
-	p, _ := strconv.Atoi(args[2])
+	u, p := args[1], args[2]
 
-	if username == args[1] && password == p {
-		fmt.Printf("Access granted to %q\n", username)
-	} else if username != args[1] || password != p {
-		fmt.Printf("Access denied for %q\n", args[1])
+	if u != user {
+		fmt.Printf(errUser, u)
+	} else if p != pass {
+		fmt.Printf(errPwd, u)
+	} else {
+		fmt.Printf(accessOK, u)
 	}
-
-	fmt.Println(len(args))
-	fmt.Println(l)
 }
