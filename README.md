@@ -1,1 +1,1 @@
-# goExercises
+# go by example
